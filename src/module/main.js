@@ -20,10 +20,12 @@ function test1 () {
   drawVerticalGridLines(ctx, canvas)
 
   const sampleData = [50, 100, 150, 200, 250]
-
   drawBarGraph(ctx, sampleData, 'red')
 }
 
+/**
+ *
+ */
 function test2 () {
   const canvas = document.getElementById('myCanvas2')
   const ctx = canvas.getContext('2d')
@@ -32,6 +34,5 @@ function test2 () {
   drawVerticalGridLines(ctx, canvas)
 
   const sampleData = [200, 400, 150, 200, 250]
-
   drawBarGraph(ctx, sampleData, 'red')
 }
