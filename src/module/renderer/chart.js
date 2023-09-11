@@ -1,6 +1,6 @@
 import { drawHorizontalGridLines, drawVerticalGridLines } from '../gridLines.js'
-import { drawBarChart } from './barChart.js'
-import { drawPieChart } from './pieChart.js'
+import { drawBarChart } from '../charts/barChart.js'
+import { drawPieChart } from '../charts/pieChart.js'
 
 /**
  * Represents a customizable chart rendered on a canvas.

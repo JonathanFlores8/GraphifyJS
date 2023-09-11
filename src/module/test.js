@@ -1,4 +1,4 @@
-import MyChart from './charts/chart.js'
+import MyChart from './renderer/chart.js'
 
 /**
  * Initializes and renders bar charts when the window loads.
