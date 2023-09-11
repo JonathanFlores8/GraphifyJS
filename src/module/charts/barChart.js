@@ -1,22 +1,62 @@
-import { scaleData } from '../dataHandler.js'
-
 /**
- * Draws a bar chart on the provided canvas context using the given data and color.
+ * A class representing a BarChart.
  *
- * @param {CanvasRenderingContext2D} ctx - The canvas rendering context where the bar chart will be drawn.
- * @param {number[]} data - An array of numerical data that will be represented as bars in the chart.
- * @param {string} color - The color to be used for the bars in the chart.
  */
-export function drawBarChart (ctx, data, color) {
-  const scaledData = scaleData(data, ctx.canvas.height)
-  const barWidth = ctx.canvas.width / scaledData.length
+export class BarChart {
+  #ctx
+  #data
+  #color
 
-  for (let i = 0; i < scaledData.length; i++) {
-    const x = i * barWidth
-    const y = ctx.canvas.height - scaledData[i]
-    const height = scaledData[i]
+  /**
+   * Constructs a BarChart object and draws the initial bar chart.
+   *
+   * @param {CanvasRenderingContext2D} ctx - The canvas rendering context where the bar chart will be drawn.
+   * @param {object} config - Configuration object for the chart.
+   * @param {number[]} config.data - An array of numerical data that will be represented as bars in the chart.
+   * @param {string} config.color - The color to be used for the bars in the chart.
+   */
+  constructor (ctx, config) {
+    this.#ctx = ctx
+    this.#data = config.data
+    this.#color = config.color
+    this.#draw() // private method invocation
+  }
 
-    ctx.fillStyle = color
-    ctx.fillRect(x, y, barWidth, height)
+  /**
+   * Scales the data to fit the canvas.
+   *
+   * @param {number[]} data - The data to be scaled.
+   * @returns {number[]} The scaled data.
+   */
+  #scaleData (data) {
+    const maxDataValue = Math.max(...data)
+    return data.map(value => (value / maxDataValue) * this.#ctx.canvas.height)
+  }
+
+  /**
+   * Draws the bar chart on the canvas.
+   */
+  #draw () {
+    const scaledData = this.#scaleData(this.#data)
+    const barWidth = this.#ctx.canvas.width / scaledData.length
+
+    for (let i = 0; i < scaledData.length; i++) {
+      const x = i * barWidth
+      const y = this.#ctx.canvas.height - scaledData[i]
+      const height = scaledData[i]
+
+      this.#ctx.fillStyle = this.#color
+      this.#ctx.fillRect(x, y, barWidth, height)
+    }
+  }
+
+  /**
+   * Updates the data for the bar chart and redraws it.
+   *
+   * @param {number[]} newData - The new data array to be represented in the chart.
+   */
+  updateData (newData) {
+    this.#data = newData
+    this.#draw()
   }
 }
