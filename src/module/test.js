@@ -1,10 +1,9 @@
 import MyChart from './renderer/chart.js'
-
 /**
  * Initializes and renders bar charts when the window loads.
  */
 window.onload = function () {
-  // Set up and render the first chart
+  // Set up and render the first bar chart
   const canvas1 = document.getElementById('myCanvas')
   const ctx1 = canvas1.getContext('2d')
   const chartConfig1 = {
@@ -18,7 +17,7 @@ window.onload = function () {
   }
   const chart1 = new MyChart(ctx1, chartConfig1)
 
-  // Set up and render the second chart
+  // Set up and render the second bar chart
   const canvas2 = document.getElementById('myCanvas2')
   const ctx2 = canvas2.getContext('2d')
   const chartConfig2 = {
@@ -32,7 +31,7 @@ window.onload = function () {
   }
   const chart2 = new MyChart(ctx2, chartConfig2)
 
-  // Set up and render the third chart
+  // Set up and render the third bar chart
   const canvas3 = document.getElementById('myCanvas3')
   const ctx3 = canvas3.getContext('2d')
   const chartConfig3 = {
@@ -46,6 +45,7 @@ window.onload = function () {
   }
   const chart3 = new MyChart(ctx3, chartConfig3)
 
+  // Set up and render the pie chart
   const pieCanvas = document.getElementById('pieCanvas')
   const pieCtx = pieCanvas.getContext('2d')
   const pieConfig = {

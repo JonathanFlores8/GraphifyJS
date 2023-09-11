@@ -19,7 +19,6 @@ export class BarChart {
     this.#ctx = ctx
     this.#data = config.data
     this.#color = config.color
-    this.#draw() // private method invocation
   }
 
   /**
@@ -36,7 +35,7 @@ export class BarChart {
   /**
    * Draws the bar chart on the canvas.
    */
-  #draw () {
+  draw () {
     const scaledData = this.#scaleData(this.#data)
     const barWidth = this.#ctx.canvas.width / scaledData.length
 
@@ -48,15 +47,5 @@ export class BarChart {
       this.#ctx.fillStyle = this.#color
       this.#ctx.fillRect(x, y, barWidth, height)
     }
-  }
-
-  /**
-   * Updates the data for the bar chart and redraws it.
-   *
-   * @param {number[]} newData - The new data array to be represented in the chart.
-   */
-  updateData (newData) {
-    this.#data = newData
-    this.#draw()
   }
 }

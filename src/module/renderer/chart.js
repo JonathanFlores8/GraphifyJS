@@ -1,10 +1,10 @@
+import { BarChart } from '../charts/barChart.js'
+import { PieChart } from '../charts/pieChart.js'
 import { drawHorizontalGridLines, drawVerticalGridLines } from '../gridLines.js'
-import { drawBarChart } from '../charts/barChart.js'
-import { drawPieChart } from '../charts/pieChart.js'
 
 /**
  * Represents a customizable chart rendered on a canvas.
- * Currently supports bar type charts with grid lines.
+ * Currently supports bar and pie charts with grid lines.
  */
 export default class MyChart {
   /**
@@ -21,17 +21,27 @@ export default class MyChart {
 
   /**
    * Initializes and draws the chart based on the provided configuration.
-   * Draws grid lines and bars for bar type charts.
+   * Draws grid lines and bars for bar type charts and pie for pie type charts.
    */
   init () {
     drawHorizontalGridLines(this.ctx, this.ctx.canvas, this.config.gridOptions)
     drawVerticalGridLines(this.ctx, this.ctx.canvas, this.config.gridOptions)
 
     if (this.config.type === 'bar') {
-      drawBarChart(this.ctx, this.config.data, this.config.color)
+      const barChartInstance = new BarChart(this.ctx, {
+        data: this.config.data,
+        color: this.config.color
+      })
+      barChartInstance.draw()
     }
+
     if (this.config.type === 'pie') {
-      drawPieChart(this.ctx, this.config.data, this.config.labels, this.config.colors)
+      const pieChartInstance = new PieChart(this.ctx, {
+        data: this.config.data,
+        labels: this.config.labels,
+        colors: this.config.colors
+      })
+      pieChartInstance.draw()
     }
   }
 }

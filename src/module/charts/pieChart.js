@@ -21,15 +21,12 @@ export class PieChart {
     this.#data = config.data
     this.#labels = config.labels
     this.#colors = config.colors
-    this.#draw()
   }
 
   /**
    * Draws the pie chart on the canvas.
-   *
-   * @private
    */
-  #draw () {
+  draw () {
     const total = this.#data.reduce((acc, value) => acc + value, 0)
     let startAngle = 0
 
@@ -52,15 +49,5 @@ export class PieChart {
 
       startAngle += sliceAngle
     }
-  }
-
-  /**
-   * Updates the pie chart's data and redraws the chart.
-   *
-   * @param {number[]} newData - New data to update the pie chart.
-   */
-  updateData (newData) {
-    this.#data = newData
-    this.#draw()
   }
 }
