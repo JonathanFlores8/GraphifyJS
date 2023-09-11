@@ -1,5 +1,5 @@
-import { drawHorizontalGridLines, drawVerticalGridLines } from './drawUtils.js'
-import { drawBarGraph } from './graph.js'
+import { drawHorizontalGridLines, drawVerticalGridLines } from '../gridLines.js'
+import { drawBarChart } from './barChart.js'
 import { drawPieChart } from './pieChart.js'
 
 /**
@@ -28,7 +28,7 @@ export default class MyChart {
     drawVerticalGridLines(this.ctx, this.ctx.canvas, this.config.gridOptions)
 
     if (this.config.type === 'bar') {
-      drawBarGraph(this.ctx, this.config.data, this.config.color)
+      drawBarChart(this.ctx, this.config.data, this.config.color)
     }
     if (this.config.type === 'pie') {
       drawPieChart(this.ctx, this.config.data, this.config.labels, this.config.colors)

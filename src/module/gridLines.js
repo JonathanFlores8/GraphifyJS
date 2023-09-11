@@ -1,19 +1,4 @@
 /**
- * Draw a rectangle on the canvas.
- *
- * @param {CanvasRenderingContext2D} ctx - The canvas context
- * @param {number} x - The x-coordinate of the top-left corner
- * @param {number} y - The y-coordinate of the top-left corner
- * @param {number} width - The width of the rectangle
- * @param {number} height - The height of the rectangle
- * @param {string} color - The fill color of the rectangle
- */
-export function drawRectangle (ctx, x, y, width, height, color) {
-  ctx.fillStyle = color
-  ctx.fillRect(x, y, width, height)
-}
-
-/**
  * Draw horizontal grid lines on the canvas.
  *
  * @param {CanvasRenderingContext2D} ctx - The canvas context
