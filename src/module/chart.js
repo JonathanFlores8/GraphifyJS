@@ -1,5 +1,6 @@
 import { drawHorizontalGridLines, drawVerticalGridLines } from './drawUtils.js'
 import { drawBarGraph } from './graph.js'
+import { drawPieChart } from './pieChart.js'
 
 /**
  * Represents a customizable chart rendered on a canvas.
@@ -28,6 +29,9 @@ export default class MyChart {
 
     if (this.config.type === 'bar') {
       drawBarGraph(this.ctx, this.config.data, this.config.color)
+    }
+    if (this.config.type === 'pie') {
+      drawPieChart(this.ctx, this.config.data, this.config.labels, this.config.colors)
     }
   }
 }
