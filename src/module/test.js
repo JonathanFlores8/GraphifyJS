@@ -20,12 +20,15 @@ window.onload = function () {
   // Set up and render the second bar chart
   const canvas2 = document.getElementById('myCanvas2')
   const ctx2 = canvas2.getContext('2d')
+  const hej = {
+    data: [50, 100, 150, 200, 250, 500, 400, 383, 23, 32, 48, 2123, 45, 0, 43,0,0,0, 10, 10 ,344, 200]
+  }
   const chartConfig2 = {
     type: 'bar',
-    data: [200, 400, 150, 200, 250],
+    data: hej.data,
     color: 'red',
     gridOptions: {
-      numLines: 10,
+      numLines: hej.data.length,
       color: 'red'
     }
   }
