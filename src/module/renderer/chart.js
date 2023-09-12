@@ -1,6 +1,5 @@
 import { BarChart } from '../charts/barChart.js'
 import { PieChart } from '../charts/pieChart.js'
-import { drawHorizontalGridLines, drawVerticalGridLines } from '../gridLines.js'
 
 /**
  * Represents a customizable chart rendered on a canvas.
@@ -24,13 +23,11 @@ export default class MyChart {
    * Draws grid lines and bars for bar type charts and pie for pie type charts.
    */
   init () {
-    drawHorizontalGridLines(this.ctx, this.ctx.canvas, this.config.gridOptions)
-    drawVerticalGridLines(this.ctx, this.ctx.canvas, this.config.gridOptions)
-
     if (this.config.type === 'bar') {
       const barChartInstance = new BarChart(this.ctx, {
         data: this.config.data,
-        color: this.config.color
+        color: this.config.color,
+        gridOptions: this.config.gridOptions // Pass grid options here
       })
       barChartInstance.draw()
     }
