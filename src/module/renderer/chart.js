@@ -3,7 +3,7 @@ import { PieChart } from '../charts/pieChart.js'
 
 /**
  * Represents a customizable chart rendered on a canvas.
- * Currently supports bar and pie charts with grid lines.
+ * Currently supports bar and pie charts.
  */
 export default class MyChart {
   /**
@@ -26,8 +26,7 @@ export default class MyChart {
     if (this.config.type === 'bar') {
       const barChartInstance = new BarChart(this.ctx, {
         data: this.config.data,
-        color: this.config.color,
-        gridOptions: this.config.gridOptions // Pass grid options here
+        color: this.config.color
       })
       barChartInstance.draw()
     }
