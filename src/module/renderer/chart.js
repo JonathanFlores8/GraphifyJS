@@ -26,7 +26,8 @@ export default class MyChart {
     if (this.config.type === 'bar') {
       const barChartInstance = new BarChart(this.ctx, {
         data: this.config.data,
-        color: this.config.color
+        color: this.config.color,
+        labels: this.config.labels
       })
       barChartInstance.draw()
     }

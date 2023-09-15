@@ -8,8 +8,9 @@ window.onload = function () {
   const ctx1 = canvas1.getContext('2d')
   const chartConfig1 = {
     type: 'bar',
-    data: [50, 100, 150, 200, 250, 100, 23, 45],
-    color: 'blue'
+    data: [10, 50, 100, 200, 300, 200, 100, 230, 200, 100],
+    color: 'purple',
+    labels: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
   }
   const chart1 = new MyChart(ctx1, chartConfig1)
 
@@ -19,7 +20,7 @@ window.onload = function () {
 
   const chartConfig2 = {
     type: 'bar',
-    data: [50, 100, 150, 200, 250, 500, 400, 383, 23, 32, 48, 2123, 45, 500],
+    data: [50, 100, 150, 200, 250, 500, 400, 383, 23, 32, 48],
     color: 'red'
   }
   const chart2 = new MyChart(ctx2, chartConfig2)
