@@ -1,5 +1,4 @@
 /**
- * A class representing a BarChart.
  *
  */
 export class BarChart {
@@ -30,58 +29,28 @@ export class BarChart {
     this.drawGrid()
 
     const scaledData = this.#scaleData(this.data)
-    const barWidth = this.ctx.canvas.width / scaledData.length
+
+    const barGap = 10
+    const totalGapWidth = barGap * (scaledData.length - 1)
+    const barWidth = (this.ctx.canvas.width - totalGapWidth) / scaledData.length
 
     for (let i = 0; i < scaledData.length; i++) {
-      const x = i * barWidth
+      const x = i * (barWidth + barGap)
       const y = this.ctx.canvas.height - scaledData[i]
-      const height = scaledData[i]
-
       this.ctx.fillStyle = this.color
-      this.ctx.strokeRect(x, y, barWidth, height)
-      this.ctx.fillRect(x, y, barWidth, height)
+      this.ctx.fillRect(x, y, barWidth, scaledData[i])
     }
   }
 
   /**
    *
-   * @param root0
-   * @param root0.numLines
-   * @param root0.color
    */
-  drawGrid ({ numLines = this.data.length, color = 'black' } = {}) {
-    this.#drawHorizontalGridLines(numLines, color)
-    this.#drawVerticalGridLines(numLines, color)
-  }
-
-  /**
-   *
-   * @param numLines
-   * @param color
-   */
-  #drawHorizontalGridLines (numLines, color) {
-    const verticalSpacing = this.ctx.canvas.height / numLines
-    for (let i = 0; i <= numLines; i++) {
+  drawGrid () {
+    const verticalSpacing = this.ctx.canvas.height / this.data.length
+    for (let i = 0; i <= this.data.length; i++) {
       this.ctx.beginPath()
       this.ctx.moveTo(0, i * verticalSpacing)
       this.ctx.lineTo(this.ctx.canvas.width, i * verticalSpacing)
-      this.ctx.strokeStyle = color
-      this.ctx.stroke()
-    }
-  }
-
-  /**
-   *
-   * @param numLines
-   * @param color
-   */
-  #drawVerticalGridLines (numLines, color) {
-    const horizontalSpacing = this.ctx.canvas.width / numLines
-    for (let i = 0; i <= numLines; i++) {
-      this.ctx.beginPath()
-      this.ctx.moveTo(i * horizontalSpacing, 0)
-      this.ctx.lineTo(i * horizontalSpacing, this.ctx.canvas.height)
-      this.ctx.strokeStyle = color
       this.ctx.stroke()
     }
   }

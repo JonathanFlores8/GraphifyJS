@@ -19,7 +19,7 @@ window.onload = function () {
 
   const chartConfig2 = {
     type: 'bar',
-    data: [50, 100, 150, 200, 250, 500, 400, 383, 23, 32, 48, 2123, 45, 0, 43, 0, 0, 0, 10, 10, 344, 200],
+    data: [50, 100, 150, 200, 250, 500, 400, 383, 23, 32, 48, 2123, 45, 500],
     color: 'red'
   }
   const chart2 = new MyChart(ctx2, chartConfig2)
