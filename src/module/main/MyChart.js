@@ -1,5 +1,5 @@
-import { BarChart } from '../charts/barChart.js'
-import { PieChart } from '../charts/pieChart.js'
+import { BarChart } from './charts/BarChart.js'
+import { PieChart } from './charts/PieChart.js'
 
 /**
  * Represents a customizable chart rendered on a canvas.
