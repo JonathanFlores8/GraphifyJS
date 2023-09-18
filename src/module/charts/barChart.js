@@ -42,10 +42,7 @@ export class BarChart {
       const x = this.Y_AXIS_LABEL_WIDTH + i * (barWidth + barGap)
       const y = this.ctx.canvas.height - scaledData[i] - this.X_AXIS_LABEL_HEIGHT
 
-      const gradient = this.ctx.createLinearGradient(0, 0, 0, this.ctx.canvas.height)
-      gradient.addColorStop(0, this.color)
-      gradient.addColorStop(1, 'white')
-      this.ctx.fillStyle = gradient
+      this.ctx.fillStyle = this.color // Directly use the specified color for the bars
 
       this.ctx.fillRect(x, y, barWidth, scaledData[i])
 

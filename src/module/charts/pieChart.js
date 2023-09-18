@@ -1,5 +1,5 @@
 /**
- * A class representing a PieChart.
+ *
  */
 export class PieChart {
   #ctx
@@ -8,13 +8,9 @@ export class PieChart {
   #colors
 
   /**
-   * Constructs a new PieChart instance.
    *
-   * @param {CanvasRenderingContext2D} ctx - The canvas rendering context where the pie chart will be drawn.
-   * @param {object} config - Configuration object for the pie chart.
-   * @param {number[]} config.data - An array of numerical data that will be represented as segments in the pie.
-   * @param {string[]} config.labels - Labels corresponding to each data segment.
-   * @param {string[]} config.colors - Colors for each segment.
+   * @param ctx
+   * @param config
    */
   constructor (ctx, config) {
     this.#ctx = ctx
@@ -24,7 +20,7 @@ export class PieChart {
   }
 
   /**
-   * Draws the pie chart on the canvas.
+   *
    */
   draw () {
     const total = this.#data.reduce((acc, value) => acc + value, 0)
@@ -43,11 +39,38 @@ export class PieChart {
         startAngle + sliceAngle
       )
       this.#ctx.closePath()
-
       this.#ctx.fillStyle = this.#colors[i]
       this.#ctx.fill()
 
+      const labelX = this.#ctx.canvas.width / 2 + (Math.min(this.#ctx.canvas.width, this.#ctx.canvas.height) / 4) * Math.cos(startAngle + sliceAngle / 2)
+      const labelY = this.#ctx.canvas.height / 2 + (Math.min(this.#ctx.canvas.width, this.#ctx.canvas.height) / 4) * Math.sin(startAngle + sliceAngle / 2)
+
+      this.#ctx.fillStyle = 'black'
+      this.#ctx.font = '15px Arial'
+      this.#ctx.textAlign = 'center'
+      this.#ctx.textBaseline = 'middle'
+      this.#ctx.fillText(`${(this.#data[i] / total * 100).toFixed(2)}%`, labelX, labelY)
+
       startAngle += sliceAngle
+    }
+
+    const boxSize = 15
+    const spacing = 5
+
+    const totalLegendHeight = this.#colors.length * (boxSize + spacing)
+    const legendY = (this.#ctx.canvas.height - totalLegendHeight) / 2
+    const legendX = 5 // X position of legends, 5 pixels from the left side of canvas
+
+    this.#ctx.font = '12px Arial'
+    this.#ctx.textAlign = 'left'
+    this.#ctx.textBaseline = 'top'
+
+    for (let i = 0; i < this.#colors.length; i++) {
+      this.#ctx.fillStyle = this.#colors[i]
+      this.#ctx.fillRect(legendX, legendY + i * (boxSize + spacing), boxSize, boxSize)
+
+      this.#ctx.fillStyle = 'black'
+      this.#ctx.fillText(this.#labels[i], legendX + boxSize + spacing, legendY + i * (boxSize + spacing))
     }
   }
 }
