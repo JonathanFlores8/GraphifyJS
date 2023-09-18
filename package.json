@@ -1,6 +1,6 @@
 {
   "name": "graphifyjs",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A simple module for rendering bar and pie charts on a canvas.",
   "main": "src/module/main/MyChart.js",
   "type": "module",

@@ -25,12 +25,6 @@ To install the module, simply run:
 npm install graphifyjs
 ```
 
-Yes, if your module is using ES6 (ECMAScript 2015) modules and it's crucial for the users to have `type: "module"` in their `package.json` to correctly use your package, then it is essential to mention this in the README. This will prevent confusion and help users avoid common pitfalls.
-
-Here's how you can update the README to include this information:
-
----
-
 ## Prerequisites
 
 ### ES6 Modules
