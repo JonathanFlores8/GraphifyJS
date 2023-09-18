@@ -22,10 +22,17 @@ A simple, customizable module for rendering bar and pie charts on a canvas.
 To install the module, simply run:
 
 ```bash
-npm install graphifyjs --save
+npm install graphifyjs
 ```
 
 ## Usage
+
+Before you can use GraphifyJS, ensure you have a canvas element in your HTML:
+
+```bash
+<canvas id="myCanvas"></canvas>
+```
+
 
 ### Bar Chart
 
@@ -84,12 +91,6 @@ To run the project locally for development:
 
    ```bash
    npm run dev
-   ```
-
-4. To build the project:
-
-   ```bash
-   npm run build
    ```
 
 ## License
