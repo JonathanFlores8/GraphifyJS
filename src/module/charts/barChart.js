@@ -108,7 +108,6 @@ export class BarChart {
   }
 
   /**
-  /**
    * Draws a single grid line.
    *
    * @param {number} index - Index of the grid line.
