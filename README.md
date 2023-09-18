@@ -30,7 +30,7 @@ npm install graphifyjs
 Before you can use GraphifyJS, ensure you have a canvas element in your HTML:
 
 ```bash
-<canvas id="myCanvas"></canvas>
+<canvas id="myCanvas" width="400" height="400"></canvas>
 ```
 
 
