@@ -25,6 +25,26 @@ To install the module, simply run:
 npm install graphifyjs
 ```
 
+Yes, if your module is using ES6 (ECMAScript 2015) modules and it's crucial for the users to have `type: "module"` in their `package.json` to correctly use your package, then it is essential to mention this in the README. This will prevent confusion and help users avoid common pitfalls.
+
+Here's how you can update the README to include this information:
+
+---
+
+## Prerequisites
+
+### ES6 Modules
+
+GraphifyJS is built using ES6 modules. To ensure compatibility, make sure to add the following to your project's `package.json`:
+
+```json
+{
+  "type": "module"
+}
+```
+
+If you're using a modern bundler or build tool (like Webpack, Rollup, or Vite), they typically handle ES6 modules seamlessly. However, if you're not using such tools or are unfamiliar with ES6 modules, [here's a guide](https://hacks.mozilla.org/2018/03/es-modules-a-cartoon-deep-dive/) to get started.
+
 ## Usage
 
 Before you can use GraphifyJS, ensure you have a canvas element in your HTML:
