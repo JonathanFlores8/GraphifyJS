@@ -1,12 +1,14 @@
 {
-  "name": "graphifyjs",
-  "version": "1.0.8",
+  "name": "testgraphifyjs",
+  "version": "1.0.2",
   "description": "A simple module for rendering bar and pie charts on a canvas.",
-  "main": "./dist/graphifyjs.js",
+  "main": "./build/index.js",
+  "files": [
+    "./build/index.js"
+  ],
   "type": "module",
-  "module": "./src/module/main/MyChart.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -26,12 +28,16 @@
   },
   "homepage": "https://github.com/JonathanFlores8/graphifyjs#readme",
   "devDependencies": {
+    "@babel/core": "^7.22.20",
+    "@babel/preset-env": "^7.22.20",
     "@lnu/eslint-config": "^1.1.10",
+    "babel-jest": "^29.7.0",
     "eslint": "^8.49.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.28.1",
     "eslint-plugin-jsdoc": "^46.6.0",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^6.1.1"
+    "eslint-plugin-promise": "^6.1.1",
+    "jest": "^29.7.0"
   }
 }

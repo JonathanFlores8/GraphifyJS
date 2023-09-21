@@ -12,6 +12,7 @@ window.onload = function () {
     color: 'purple',
     labels: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
   }
+  // eslint-disable-next-line no-unused-vars
   const chart1 = new MyChart(ctx1, chartConfig1)
 
   // Set up and render the second bar chart
@@ -23,6 +24,7 @@ window.onload = function () {
     data: [50, 100, 150, 200, 250, 500, 400, 383, 23, 32, 48],
     color: 'red'
   }
+  // eslint-disable-next-line no-unused-vars
   const chart2 = new MyChart(ctx2, chartConfig2)
 
   // Set up and render the third bar chart
@@ -33,6 +35,7 @@ window.onload = function () {
     data: [20, 40, 15, 100, 90],
     color: 'green'
   }
+  // eslint-disable-next-line no-unused-vars
   const chart3 = new MyChart(ctx3, chartConfig3)
 
   // Set up and render the pie chart
@@ -44,5 +47,6 @@ window.onload = function () {
     labels: ['A', 'B', 'C', 'D', 'Q'],
     colors: ['#FF5733', '#33FF57', '#5733FF', '#FFFF33', '#FF33FF']
   }
+  // eslint-disable-next-line no-unused-vars
   const pieChart = new MyChart(pieCtx, pieConfig)
 }
