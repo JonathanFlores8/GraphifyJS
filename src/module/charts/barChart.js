@@ -127,4 +127,72 @@ export class BarChart {
     this.#ctx.fillStyle = 'black'
     this.#ctx.fillText(gridValue.toString(), this.#config.Y_AXIS_LABEL_WIDTH - 5, index * spacing)
   }
+
+  /**
+   * Update the data for the chart.
+   *
+   * @param {Array<number>} newData
+   */
+  updateData (newData) {
+    this.#data = newData
+    this.draw()
+  }
+
+  /**
+   * Update the color for the chart bars.
+   *
+   * @param {string} newColor
+   */
+  updateColor (newColor) {
+    this.#color = newColor
+    this.draw()
+  }
+
+  /**
+   * Update the labels for the chart.
+   *
+   * @param {Array<string>} newLabels
+   */
+  updateLabels (newLabels) {
+    this.#labels = newLabels
+    this.draw()
+  }
+
+  /**
+   *
+   */
+  getConfig () {
+    return this.#config
+  }
+
+  /**
+   * Update the configuration for the chart.
+   *
+   * @param {object} newConfig
+   */
+  updateConfig (newConfig) {
+    this.#config = { ...this.#config, ...newConfig }
+    this.draw()
+  }
+
+  /**
+   * Get the current data of the chart.
+   *
+   * @returns {Array<number>}
+   */
+  getData () {
+    return this.#data
+  }
+
+  /**
+   * Get the current dimensions of the chart.
+   *
+   * @returns {object}
+   */
+  getChartDimensions () {
+    return {
+      width: this.#ctx.canvas.width,
+      height: this.#ctx.canvas.height
+    }
+  }
 }
