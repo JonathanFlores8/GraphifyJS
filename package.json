@@ -1,6 +1,6 @@
 {
   "name": "testgraphifyjs",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "A simple module for rendering bar and pie charts on a canvas.",
   "main": "./build/index.js",
   "files": [
