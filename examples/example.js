@@ -26,3 +26,6 @@ const pieConfig = {
 const pieChart = new MyChart(pieCtx, pieConfig).init()
 pieChart.draw()
 pieChart.updateLegendLabels(['one', 'two', 'three'])
+pieChart.updateColors(['blue', 'red', 'green'])
+pieChart.updateData([40, 50, 60])
+pieChart.updateConfig({ legendBoxSize: 20 })

@@ -170,6 +170,10 @@ export class PieChart {
    * @param {object} newConfig - New configuration values.
    */
   updateConfig (newConfig) {
+    if (!newConfig || typeof newConfig !== 'object') {
+      throw new Error('Invalid config: Expected an object.')
+    }
+
     this.#config = { ...this.#config, ...newConfig }
     this.draw()
   }

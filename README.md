@@ -1,35 +1,29 @@
+```markdown
+# TestGraphifyJS
 
----
-
-# GraphifyJS
-
-![version](https://img.shields.io/badge/version-1.0.0-blue)
-
-A simple, customizable module for rendering bar and pie charts on a canvas.
+A simple and efficient JavaScript library for rendering bar charts on HTML canvas.
 
 ## Table of Contents
 
 - [Installation](#installation)
 - [Usage](#usage)
-  - [Bar Chart](#bar-chart)
-  - [Pie Chart](#pie-chart)
-- [Development](#development)
+  - [Bar Chart Example](#bar-chart-example)
+  - [Dependencies](#dependencies)
+  - [Testing](#testing)
+  - [Bug Reporting](#bug-reporting)
 - [License](#license)
-- [Issues](#issues)
+```
 
 ## Installation
 
-To install the module, simply run:
+Start a new project and initialize it with npm by running the following commands:
 
 ```bash
-npm install graphifyjs
+npm init -y
+npm install testgraphifyjs
 ```
 
-## Prerequisites
-
-### ES6 Modules
-
-GraphifyJS is built using ES6 modules. To ensure compatibility, make sure to add the following to your project's `package.json`:
+Since this module is written in ECMAScript 6, you will need to specify `"type": "module"` in your `package.json` file.
 
 ```json
 {
@@ -37,82 +31,73 @@ GraphifyJS is built using ES6 modules. To ensure compatibility, make sure to add
 }
 ```
 
-If you're using a modern bundler or build tool (like Webpack, Rollup, or Vite), they typically handle ES6 modules seamlessly. However, if you're not using such tools or are unfamiliar with ES6 modules, [here's a guide](https://hacks.mozilla.org/2018/03/es-modules-a-cartoon-deep-dive/) to get started.
-
 ## Usage
 
-Before you can use GraphifyJS, ensure you have a canvas element in your HTML:
+Below is a simple example on how you can use the `testgraphifyjs` module to render a bar chart on an HTML canvas:
+
+### index.html:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GraphifyJS</title>
+</head>
+<body>
+
+    <canvas id="barCanvas"></canvas>
+
+    <script src="./index.js" type="module"></script>
+
+</body>
+</html>
+```
+
+### index.js:
+
+```javascript
+import { MyChart } from 'testgraphifyjs';
+
+/**
+ * Initializes and renders bar charts when the window loads.
+ */
+window.onload = function () {
+  // Set up and render the first chart
+  const ctx = document.getElementById('barCanvas').getContext('2d');
+  const chartConfig = {
+    type: 'bar',
+    data: [10, 50, 100, 200, 300, 200, 100, 230, 200, 100],
+    color: 'purple',
+    labels: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
+  };
+  const chart = new MyChart(ctx, chartConfig).init();
+  chart.draw();
+  chart.toggleGrid(true);
+
+};
+```
+
+In this example, an HTML file (`index.html`) and a JavaScript file (`index.js`) are created. The `testgraphifyjs` module is imported in the JavaScript file, and a bar chart is initialized and rendered on the canvas element in the HTML file when the window loads.
+
+## Dependencies
+
+- A modern browser with support for the HTML canvas API.
+
+## Testing
+
+See the `__tests__` directory for Jest test suites verifying the functionality of the `BarChart` class and other components. Run the tests with the following command:
 
 ```bash
-<canvas id="myCanvas" width="400" height="400"></canvas>
+npm test
 ```
 
+## Bug Reporting
 
-### Bar Chart
-
-To create a bar chart, you'll need to provide the rendering context, data, colors, and labels.
-
-```javascript
-import { MyChart } from 'graphifyjs';
-
-const ctx = document.getElementById('myCanvas').getContext('2d');
-const chart = new MyChart(ctx, {
-  type: 'bar',
-  data: [10, 20, 30, 40],
-  color: '#FF0000',
-  labels: ['Jan', 'Feb', 'Mar', 'Apr']
-});
-
-chart.init();
-```
-
-### Pie Chart
-
-To create a pie chart, you'll need to provide the rendering context, data, colors for each segment, and labels.
-
-```javascript
-import { MyChart } from 'graphifyjs';
-
-const ctx = document.getElementById('myCanvas').getContext('2d');
-const chart = new MyChart(ctx, {
-  type: 'pie',
-  data: [10, 20, 30, 40],
-  colors: ['#FF0000', '#00FF00', '#0000FF', '#FFFF00'],
-  labels: ['Red', 'Green', 'Blue', 'Yellow']
-});
-
-chart.init();
-```
-
-## Development
-
-To run the project locally for development:
-
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/JonathanFlores8/graphifyjs.git
-   cd graphifyjs
-   ```
-
-2. Install dependencies:
-
-   ```bash
-   npm install
-   ```
-
-3. Start the development server:
-
-   ```bash
-   npm run dev
-   ```
+If you encounter any bugs or issues, please report them on the GitHub repository's [issues page](https://github.com/JonathanFlores8/graphifyjs/issues).
 
 ## License
 
-This project is licensed under the MIT License. See the `LICENSE` file for details.
-
-## Issues
-
-If you encounter any issues or have suggestions for improvements, please [create an issue on GitHub](https://github.com/JonathanFlores8/graphifyjs/issues).
-
----
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
