@@ -148,6 +148,9 @@ export class BarChart {
    * @param {string} newColor - New color value.
    */
   updateColor (newColor) {
+    if (typeof newColor !== 'string') {
+      throw new Error('Invalid color: Expected a string')
+    }
     this.#color = newColor
     this.draw()
   }
@@ -166,20 +169,15 @@ export class BarChart {
   }
 
   /**
-   * Gets the current configuration of the chart.
-   *
-   * @returns {object} - The current configuration.
-   */
-  getConfig () {
-    return this.#config
-  }
-
-  /**
    * Updates the configuration for the chart and re-renders it.
    *
    * @param {object} newConfig - New configuration values.
    */
   updateConfig (newConfig) {
+    if (!newConfig || typeof newConfig !== 'object') {
+      throw new Error('Invalid config: Expected an object.')
+    }
+
     this.#config = { ...this.#config, ...newConfig }
     this.draw()
   }
@@ -191,6 +189,15 @@ export class BarChart {
    */
   getData () {
     return this.#data
+  }
+
+  /**
+   * Gets the current configuration of the chart.
+   *
+   * @returns {object} - The current configuration.
+   */
+  getConfig () {
+    return this.#config
   }
 
   /**
@@ -211,6 +218,9 @@ export class BarChart {
    * @param {string} newGridFont - New font value.
    */
   updateGridFont (newGridFont) {
+    if (typeof newGridFont !== 'string') {
+      throw new Error('Invalid grid font: Expected a string')
+    }
     this.#config.gridFont = newGridFont
     this.draw()
   }
@@ -234,6 +244,9 @@ export class BarChart {
    * @param {number} newNumGridLines - New number of grid lines.
    */
   updateNumGridLines (newNumGridLines) {
+    if (typeof newNumGridLines !== 'number') {
+      throw new Error('Invalid newNumGridLines: Expected a number')
+    }
     this.#config.numGridLines = newNumGridLines
     this.draw()
   }
@@ -244,6 +257,9 @@ export class BarChart {
    * @param {number} newYAxisLabelWidth - New width value.
    */
   updateYAxisLabelWidth (newYAxisLabelWidth) {
+    if (typeof newYAxisLabelWidth !== 'number') {
+      throw new Error('Invalid Y axid label width: Expected a number')
+    }
     this.#config.yAxisLabelWidth = newYAxisLabelWidth
     this.draw()
   }
@@ -254,6 +270,9 @@ export class BarChart {
    * @param {number} newXAxisLabelHeight - New height value.
    */
   updateXAxisLabelHeight (newXAxisLabelHeight) {
+    if (typeof newXAxisLabelHeight !== 'number') {
+      throw new Error('Invalid x axis label height: Expected a number')
+    }
     this.#config.xAxisLabelHeight = newXAxisLabelHeight
     this.draw()
   }
@@ -264,6 +283,9 @@ export class BarChart {
    * @param {number} newBarGap - New gap value.
    */
   updateBarGap (newBarGap) {
+    if (typeof newBarGap !== 'number') {
+      throw new Error('Invalid bar gap: Expected a number')
+    }
     this.#config.barGap = newBarGap
     this.draw()
   }

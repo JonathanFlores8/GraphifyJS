@@ -4,8 +4,8 @@
 export class PieChart {
   #ctx
   #data
-  #labels
   #colors
+  #labels
   #config
 
   /**
@@ -17,8 +17,8 @@ export class PieChart {
   constructor (ctx, config = {}) {
     this.#ctx = ctx
     this.#data = config.data || [1]
-    this.#labels = config.labels || ['Default']
-    this.#colors = config.colors || ['grey']
+    this.#colors = config.colors
+    this.#labels = config.labels
 
     // Default configurations
     this.#config = {
@@ -32,6 +32,8 @@ export class PieChart {
    * Draws the pie chart.
    */
   draw () {
+    this.#drawLegend()
+
     const total = this.#data.reduce((acc, value) => acc + value, 0)
     let startAngle = 0
 
@@ -39,8 +41,6 @@ export class PieChart {
       this.#drawSlice(startAngle, dataPoint, total, i)
       startAngle += (dataPoint / total) * 2 * Math.PI
     })
-
-    this.#drawLegend()
   }
 
   /**
@@ -92,8 +92,16 @@ export class PieChart {
    */
   #drawLegend () {
     const totalLegendHeight = this.#colors.length * (this.#config.legendBoxSize + this.#config.legendSpacing)
-    const legendX = this.#ctx.canvas.width * 0.1 // Adjust this value to position the legend on the X-axis
+    const legendX = this.#ctx.canvas.width * 0.08 // Adjust this value to position the legend on the X-axis
     const legendY = (this.#ctx.canvas.height - totalLegendHeight) / 2 // Adjust this value to position the legend on the Y-axis
+
+    // Clear the old legend
+    this.#ctx.clearRect(
+      legendX - this.#config.legendSpacing,
+      legendY - this.#config.legendSpacing,
+      this.#ctx.canvas.width * 0.4, // Adjust this value to clear the required area
+      totalLegendHeight + this.#config.legendSpacing * 2
+    )
 
     this.#ctx.font = this.#config.font
     this.#ctx.textAlign = 'left'
@@ -101,10 +109,19 @@ export class PieChart {
 
     this.#colors.forEach((color, index) => {
       this.#ctx.fillStyle = color
-      this.#ctx.fillRect(legendX, legendY + index * (this.#config.legendBoxSize + this.#config.legendSpacing), this.#config.legendBoxSize, this.#config.legendBoxSize)
+      this.#ctx.fillRect(
+        legendX,
+        legendY + index * (this.#config.legendBoxSize + this.#config.legendSpacing),
+        this.#config.legendBoxSize,
+        this.#config.legendBoxSize
+      )
 
       this.#ctx.fillStyle = 'black'
-      this.#ctx.fillText(this.#labels[index], legendX + this.#config.legendBoxSize + this.#config.legendSpacing, legendY + index * (this.#config.legendBoxSize + this.#config.legendSpacing))
+      this.#ctx.fillText(
+        this.#labels[index],
+        legendX + this.#config.legendBoxSize + this.#config.legendSpacing,
+        legendY + index * (this.#config.legendBoxSize + this.#config.legendSpacing)
+      )
     })
   }
 
@@ -126,7 +143,7 @@ export class PieChart {
    *
    * @param {Array<string>} newLabels - New labels.
    */
-  updateLabels (newLabels) {
+  updateLegendLabels (newLabels) {
     if (!Array.isArray(newLabels) || !newLabels.every(label => typeof label === 'string')) {
       throw new Error('Invalid labels: Expected an array of strings')
     }

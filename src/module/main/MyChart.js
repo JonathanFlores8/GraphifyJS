@@ -44,7 +44,6 @@ export default class MyChart {
       })
       return pieChartInstance
     }
-
     // Return null if the chart type is unrecognized
     return null
   }
