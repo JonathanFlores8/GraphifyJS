@@ -18,12 +18,13 @@ export default class MyChart {
   constructor (ctx, config) {
     this.#ctx = ctx
     this.#config = config
-    this.init()
   }
 
   /**
    * Initializes and draws the chart based on the provided configuration.
-   * Draws grid lines and bars for bar type charts and pie for pie type charts.
+   * Draws grid lines and bars for bar type charts and slices for pie type charts.
+   *
+   * @returns {BarChart|PieChart|null} The instance of the drawn chart, or null if the chart type is unrecognized.
    */
   init () {
     if (this.#config.type === 'bar') {
@@ -32,7 +33,7 @@ export default class MyChart {
         color: this.#config.color,
         labels: this.#config.labels
       })
-      barChartInstance.draw()
+      return barChartInstance
     }
 
     if (this.#config.type === 'pie') {
@@ -41,7 +42,10 @@ export default class MyChart {
         labels: this.#config.labels,
         colors: this.#config.colors
       })
-      pieChartInstance.draw()
+      return pieChartInstance
     }
+
+    // Return null if the chart type is unrecognized
+    return null
   }
 }

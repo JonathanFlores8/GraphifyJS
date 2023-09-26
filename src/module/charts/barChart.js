@@ -22,12 +22,12 @@ export class BarChart {
 
     // Default configurations
     this.#config = {
-      Y_AXIS_LABEL_WIDTH: config.Y_AXIS_LABEL_WIDTH || 50,
-      X_AXIS_LABEL_HEIGHT: config.X_AXIS_LABEL_HEIGHT || 30,
-      BAR_GAP: config.BAR_GAP || 10,
-      NUM_GRID_LINES: config.NUM_GRID_LINES || 10,
-      GRID_FONT: config.GRID_FONT || '10px Arial',
-      LABEL_FONT: config.LABEL_FONT || '12px Arial'
+      yAxisLabelWidth: config.yAxisLabelWidth || 50,
+      xAxisLabelHeight: config.xAxisLabelHeight || 30,
+      barGap: config.barGap || 10,
+      numGridLines: config.numGridLines || 10,
+      gridFont: config.gridFont || '10px Arial',
+      labelFont: config.labelFont || '12px Arial'
     }
   }
 
@@ -44,11 +44,11 @@ export class BarChart {
    * Scales data for rendering.
    *
    * @param {Array<number>} data - Data values.
-   * @returns {Array<number>} Scaled data values.
+   * @returns {Array<number>} - Scaled data values.
    */
   #scaleData (data) {
     const maxDataValue = Math.max(...data)
-    const canvasHeight = this.#ctx.canvas.height - this.#config.X_AXIS_LABEL_HEIGHT
+    const canvasHeight = this.#ctx.canvas.height - this.#config.xAxisLabelHeight
     return data.map(value => (value / maxDataValue) * canvasHeight)
   }
 
@@ -57,8 +57,8 @@ export class BarChart {
    */
   #drawBars () {
     const scaledData = this.#scaleData(this.#data)
-    const totalGapWidth = this.#config.BAR_GAP * (scaledData.length - 1)
-    const barWidth = (this.#ctx.canvas.width - this.#config.Y_AXIS_LABEL_WIDTH - totalGapWidth) / scaledData.length
+    const totalGapWidth = this.#config.barGap * (scaledData.length - 1)
+    const barWidth = (this.#ctx.canvas.width - this.#config.yAxisLabelWidth - totalGapWidth) / scaledData.length
 
     for (let i = 0; i < scaledData.length; i++) {
       this.#drawSingleBar(i, scaledData, barWidth)
@@ -73,15 +73,15 @@ export class BarChart {
    * @param {number} barWidth - Width of a single bar.
    */
   #drawSingleBar (index, scaledData, barWidth) {
-    const x = this.#config.Y_AXIS_LABEL_WIDTH + index * (barWidth + this.#config.BAR_GAP)
-    const y = this.#ctx.canvas.height - scaledData[index] - this.#config.X_AXIS_LABEL_HEIGHT
+    const x = this.#config.yAxisLabelWidth + index * (barWidth + this.#config.barGap)
+    const y = this.#ctx.canvas.height - scaledData[index] - this.#config.xAxisLabelHeight
 
     this.#ctx.fillStyle = this.#color
     this.#ctx.fillRect(x, y, barWidth, scaledData[index])
 
     if (this.#labels && this.#labels[index]) {
       this.#ctx.fillStyle = 'black'
-      this.#ctx.font = this.#config.LABEL_FONT
+      this.#ctx.font = this.#config.labelFont
       this.#ctx.textAlign = 'center'
       this.#ctx.fillText(this.#labels[index], x + (barWidth / 2), this.#ctx.canvas.height - 5)
     }
@@ -91,19 +91,20 @@ export class BarChart {
    * Draws the grid of the chart.
    */
   #drawGrid () {
-    const verticalSpacing = (this.#ctx.canvas.height - this.#config.X_AXIS_LABEL_HEIGHT) / this.#config.NUM_GRID_LINES
+    if (!this.#config.showGrid) return
+    const verticalSpacing = (this.#ctx.canvas.height - this.#config.xAxisLabelHeight) / this.#config.numGridLines
     const maxValue = Math.max(...this.#data)
-    const interval = Math.ceil(maxValue / this.#config.NUM_GRID_LINES)
+    const interval = Math.ceil(maxValue / this.#config.numGridLines)
 
-    for (let i = 0; i <= this.#config.NUM_GRID_LINES; i++) {
+    for (let i = 0; i <= this.#config.numGridLines; i++) {
       this.#drawGridLine(i, verticalSpacing, interval)
     }
 
     // Draw x and y axes
     this.#ctx.beginPath()
-    this.#ctx.moveTo(this.#config.Y_AXIS_LABEL_WIDTH, 0)
-    this.#ctx.lineTo(this.#config.Y_AXIS_LABEL_WIDTH, this.#ctx.canvas.height - this.#config.X_AXIS_LABEL_HEIGHT)
-    this.#ctx.lineTo(this.#ctx.canvas.width, this.#ctx.canvas.height - this.#config.X_AXIS_LABEL_HEIGHT)
+    this.#ctx.moveTo(this.#config.yAxisLabelWidth, 0)
+    this.#ctx.lineTo(this.#config.yAxisLabelWidth, this.#ctx.canvas.height - this.#config.xAxisLabelHeight)
+    this.#ctx.lineTo(this.#ctx.canvas.width, this.#ctx.canvas.height - this.#config.xAxisLabelHeight)
     this.#ctx.stroke()
   }
 
@@ -116,32 +117,35 @@ export class BarChart {
    */
   #drawGridLine (index, spacing, interval) {
     this.#ctx.beginPath()
-    this.#ctx.moveTo(this.#config.Y_AXIS_LABEL_WIDTH, index * spacing)
+    this.#ctx.moveTo(this.#config.yAxisLabelWidth, index * spacing)
     this.#ctx.lineTo(this.#ctx.canvas.width, index * spacing)
     this.#ctx.stroke()
 
-    const gridValue = interval * (this.#config.NUM_GRID_LINES - index)
+    const gridValue = interval * (this.#config.numGridLines - index)
 
     this.#ctx.textAlign = 'right'
-    this.#ctx.font = this.#config.GRID_FONT
+    this.#ctx.font = this.#config.gridFont
     this.#ctx.fillStyle = 'black'
-    this.#ctx.fillText(gridValue.toString(), this.#config.Y_AXIS_LABEL_WIDTH - 5, index * spacing)
+    this.#ctx.fillText(gridValue.toString(), this.#config.yAxisLabelWidth - 5, index * spacing)
   }
 
   /**
-   * Update the data for the chart.
+   * Updates the data for the chart and re-renders it.
    *
-   * @param {Array<number>} newData
+   * @param {Array<number>} newData - New data values.
    */
   updateData (newData) {
+    if (!Array.isArray(newData) || !newData.every(item => typeof item === 'number')) {
+      throw new Error('Invalid data: Expected an array of numbers')
+    }
     this.#data = newData
     this.draw()
   }
 
   /**
-   * Update the color for the chart bars.
+   * Updates the color for the chart bars and re-renders the chart.
    *
-   * @param {string} newColor
+   * @param {string} newColor - New color value.
    */
   updateColor (newColor) {
     this.#color = newColor
@@ -149,26 +153,31 @@ export class BarChart {
   }
 
   /**
-   * Update the labels for the chart.
+   * Updates the labels for the chart and re-renders the chart.
    *
-   * @param {Array<string>} newLabels
+   * @param {Array<string>} newLabels - New labels.
    */
   updateLabels (newLabels) {
+    if (!Array.isArray(newLabels) || !newLabels.every(label => typeof label === 'string')) {
+      throw new Error('Invalid labels: Expected an array of strings')
+    }
     this.#labels = newLabels
     this.draw()
   }
 
   /**
+   * Gets the current configuration of the chart.
    *
+   * @returns {object} - The current configuration.
    */
   getConfig () {
     return this.#config
   }
 
   /**
-   * Update the configuration for the chart.
+   * Updates the configuration for the chart and re-renders it.
    *
-   * @param {object} newConfig
+   * @param {object} newConfig - New configuration values.
    */
   updateConfig (newConfig) {
     this.#config = { ...this.#config, ...newConfig }
@@ -176,23 +185,99 @@ export class BarChart {
   }
 
   /**
-   * Get the current data of the chart.
+   * Gets the current data of the chart.
    *
-   * @returns {Array<number>}
+   * @returns {Array<number>} - The current data values.
    */
   getData () {
     return this.#data
   }
 
   /**
-   * Get the current dimensions of the chart.
+   * Gets the current dimensions of the chart.
    *
-   * @returns {object}
+   * @returns {object} - Object containing the width and height of the chart.
    */
   getChartDimensions () {
     return {
       width: this.#ctx.canvas.width,
       height: this.#ctx.canvas.height
     }
+  }
+
+  /**
+   * Updates the font used for grid labels and re-renders the chart.
+   *
+   * @param {string} newGridFont - New font value.
+   */
+  updateGridFont (newGridFont) {
+    this.#config.gridFont = newGridFont
+    this.draw()
+  }
+
+  /**
+   * Updates the font used for bar labels and re-renders the chart.
+   *
+   * @param {string} newLabelFont - New font value.
+   */
+  updateLabelFont (newLabelFont) {
+    if (typeof newLabelFont !== 'string') {
+      throw new Error('Invalid label font: Expected a string')
+    }
+    this.#config.labelFont = newLabelFont
+    this.draw()
+  }
+
+  /**
+   * Updates the number of grid lines and re-renders the chart.
+   *
+   * @param {number} newNumGridLines - New number of grid lines.
+   */
+  updateNumGridLines (newNumGridLines) {
+    this.#config.numGridLines = newNumGridLines
+    this.draw()
+  }
+
+  /**
+   * Updates the width for the Y-axis labels and re-renders the chart.
+   *
+   * @param {number} newYAxisLabelWidth - New width value.
+   */
+  updateYAxisLabelWidth (newYAxisLabelWidth) {
+    this.#config.yAxisLabelWidth = newYAxisLabelWidth
+    this.draw()
+  }
+
+  /**
+   * Updates the height for the X-axis labels and re-renders the chart.
+   *
+   * @param {number} newXAxisLabelHeight - New height value.
+   */
+  updateXAxisLabelHeight (newXAxisLabelHeight) {
+    this.#config.xAxisLabelHeight = newXAxisLabelHeight
+    this.draw()
+  }
+
+  /**
+   * Updates the gap between bars and re-renders the chart.
+   *
+   * @param {number} newBarGap - New gap value.
+   */
+  updateBarGap (newBarGap) {
+    this.#config.barGap = newBarGap
+    this.draw()
+  }
+
+  /**
+   * Toggles the visibility of grid lines and re-renders the chart.
+   *
+   * @param {boolean} showGrid - Whether to show grid lines.
+   */
+  toggleGrid (showGrid) {
+    if (typeof showGrid !== 'boolean') {
+      throw new Error('Invalid value: Expected a boolean')
+    }
+    this.#config.showGrid = showGrid
+    this.draw()
   }
 }
