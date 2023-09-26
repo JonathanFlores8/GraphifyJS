@@ -33,7 +33,7 @@ Since this module is written in ECMAScript 6, you will need to specify `"type": 
 
 ## Usage
 
-Below is a simple example on how you can use the `testgraphifyjs` module to render a bar chart on an HTML canvas:
+Below is a simple example on how you can use the `testgraphifyjs` module to render a bar chart on an HTML canvas. You can use either the [Vite](https://vitejs.dev/) npm package or the [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) extension to render the HTML.
 
 ### index.html:
 
