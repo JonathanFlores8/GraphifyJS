@@ -1,10 +1,9 @@
-import MyChart from '../src/module/main/MyChart.js'
-import { BarChart } from '../src/module/charts/BarChart.js'
-import { PieChart } from '../src/module/charts/PieChart.js'
+import MyChart from '../../src/module/main/MyChart.js'
+import { BarChart } from '../../src/module/charts/BarChart.js'
+import { PieChart } from '../../src/module/charts/PieChart.js'
 
-// Mock the BarChart and PieChart classes to avoid actual rendering during testing
-jest.mock('../src/module/charts/BarChart.js')
-jest.mock('../src/module/charts/PieChart.js')
+jest.mock('../../src/module/charts/BarChart.js')
+jest.mock('../../src/module/charts/PieChart.js')
 
 describe('MyChart', () => {
   let ctxMock
@@ -33,11 +32,12 @@ describe('MyChart', () => {
       labels: ['A', 'B', 'C']
     }
 
-    // eslint-disable-next-line no-new
-    new MyChart(ctxMock, config)
+    const myChart = new MyChart(ctxMock, config)
+    const chartInstance = myChart.init()
 
     expect(BarChart).toHaveBeenCalledTimes(1)
     expect(PieChart).not.toHaveBeenCalled()
+    expect(chartInstance).toBeInstanceOf(BarChart)
   })
 
   it('should create a PieChart instance for type "pie"', () => {
@@ -48,10 +48,11 @@ describe('MyChart', () => {
       colors: ['#FF5733', '#33FF57', '#5733FF']
     }
 
-    // eslint-disable-next-line no-new
-    new MyChart(ctxMock, config)
+    const myChart = new MyChart(ctxMock, config)
+    const chartInstance = myChart.init()
 
     expect(PieChart).toHaveBeenCalledTimes(1)
     expect(BarChart).not.toHaveBeenCalled()
+    expect(chartInstance).toBeInstanceOf(PieChart)
   })
 })

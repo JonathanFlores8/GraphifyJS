@@ -3,12 +3,17 @@
 
 A simple and efficient JavaScript library for rendering bar charts on HTML canvas.
 
+https://www.npmjs.com/package/testgraphifyjs
+
 ## Table of Contents
 
 - [Installation](#installation)
 - [Usage](#usage)
   - [Bar Chart Example](#bar-chart-example)
   - [Dependencies](#dependencies)
+  - [Public Methods](#public-methods)
+    - [BarChart Methods](#barchart-methods)
+    - [PieChart Methods](#piechart-methods)
   - [Testing](#testing)
   - [Bug Reporting](#bug-reporting)
 - [License](#license)
@@ -82,13 +87,41 @@ window.onload = function () {
 
 In this example, an HTML file (`index.html`) and a JavaScript file (`index.js`) are created. The `testgraphifyjs` module is imported in the JavaScript file, and a bar chart is initialized and rendered on the canvas element in the HTML file when the window loads.
 
+## Public Methods
+
+### BarChart Methods:
+
+- `draw()`: Renders the bar chart on the canvas.
+- `updateData(newData)`: Updates the data for the chart and re-renders it.
+- `updateColor(newColor)`: Updates the color for the bars in the chart and re-renders it.
+- `updateLabels(newLabels)`: Updates the labels for the chart and re-renders it.
+- `updateConfig(newConfig)`: Updates the configuration for the chart and re-renders it.
+- `getData()`: Retrieves the current data of the chart.
+- `getConfig()`: Retrieves the current configuration of the chart.
+- `getChartDimensions()`: Retrieves the current dimensions of the chart.
+- `updateGridFont(newGridFont)`: Updates the font used for grid labels and re-renders the chart.
+- `updateLabelFont(newLabelFont)`: Updates the font used for bar labels and re-renders the chart.
+- `updateNumGridLines(newNumGridLines)`: Updates the number of grid lines and re-renders the chart.
+- `updateYAxisLabelWidth(newYAxisLabelWidth)`: Updates the width for the Y-axis labels and re-renders the chart.
+- `updateXAxisLabelHeight(newXAxisLabelHeight)`: Updates the height for the X-axis labels and re-renders the chart.
+- `updateBarGap(newBarGap)`: Updates the gap between bars and re-renders the chart.
+- `toggleGrid(showGrid)`: Toggles the visibility of grid lines and re-renders the chart.
+
+### PieChart Methods:
+
+- `draw()`: Draws the pie chart.
+- `updateData(newData)`: Updates the data for the chart and re-renders it.
+- `updateLegendLabels(newLabels)`: Updates the labels for the chart and re-renders the chart.
+- `updateColors(newColors)`: Updates the colors for the slices and re-renders the chart.
+- `updateConfig(newConfig)`: Updates the configuration for the chart and re-renders it.
+
 ## Dependencies
 
 - A modern browser with support for the HTML canvas API.
 
 ## Testing
 
-See the `__tests__` directory for Jest test suites verifying the functionality of the `BarChart` class and other components. Run the tests with the following command:
+See the `tests` directory for Jest test suites verifying the functionality of the `MyChart` class. Run the tests with the following command:
 
 ```bash
 npm test

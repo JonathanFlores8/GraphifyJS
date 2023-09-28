@@ -1,22 +1,31 @@
 import MyChart from '../src/module/main/MyChart.js'
 
-const ctx = document.getElementById('barCanvas').getContext('2d')
-const config = {
+// Bar chart
+const barCtx = document.getElementById('barCanvas').getContext('2d')
+const barConfig = {
   type: 'bar',
   data: [10, 20, 30],
   labels: ['One', 'Two', 'Three'],
   color: 'blue'
 }
-const myChart = new MyChart(ctx, config).init()
-myChart.draw()
-myChart.toggleGrid(true)
-myChart.updateBarGap(20)
-myChart.updateData([40, 50, 60])
-myChart.updateLabels(['Four', 'Five', 'Six'])
-myChart.updateColor('red')
+const barChart = new MyChart(barCtx, barConfig).init()
+barChart.draw()
+barChart.toggleGrid(true)
+barChart.updateBarGap(20)
+barChart.updateData([40, 50, 60])
+barChart.updateLabels(['Four', 'Five', 'Six'])
+barChart.updateColor('red')
+const colors = ['red', 'blue, green, orange']
+let flag = true
+setInterval(() => {
+  const color = Math.random() > 0.5 ? colors[0] : colors[1]
+  barChart.updateColor(color)
+  barChart.toggleGraph(flag)
+  flag = !flag
+}, 250)
 
+// Pie chart
 const pieCtx = document.getElementById('pieCanvas').getContext('2d')
-
 const pieConfig = {
   type: 'pie',
   data: [10, 20, 30],
