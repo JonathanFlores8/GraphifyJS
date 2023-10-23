@@ -20,7 +20,6 @@ let flag = true
 setInterval(() => {
   const color = Math.random() > 0.5 ? colors[0] : colors[1]
   barChart.updateColor(color)
-  barChart.toggleGraph(flag)
   flag = !flag
 }, 250)
 
